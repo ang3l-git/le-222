@@ -43,6 +43,9 @@
     </script>
 
     <style>
+        html {
+            scroll-padding-top: 120px;
+        }
         body {
             overflow-x: hidden;
             transition: background-color 0.8s ease;
@@ -181,10 +184,10 @@
     </div>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main class="pt-20">
+    <main class="pt-24">
         
         <!-- HERO SECTION -->
-        <section id="home" class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+        <section id="home" class="relative min-h-[85vh] md:h-[90vh] flex items-center justify-center overflow-hidden py-8 md:py-0">
             <!-- Dynamic Background Image (Mock) -->
             <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 opacity-30 transform scale-105" 
                  style="background-image: url('fond/222fondcrepe.png');">
@@ -193,10 +196,10 @@
             <!-- Dark Gradient Overlay for extra blackness -->
             <div class="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black"></div>
 
-            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-8 items-center">
                 
                 <!-- Left: Video Presentation (Smaller) -->
-                <div id="hero-left-col" class="md:col-span-3 flex justify-center md:justify-start order-1 md:order-1 transition-opacity duration-500">
+                <div id="hero-left-col" class="hidden md:flex md:col-span-3 justify-center md:justify-start order-1 md:order-1 transition-opacity duration-500">
                     <div class="w-48 aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative group transform hover:scale-105 transition-transform duration-500">
                         <video autoplay loop muted playsinline class="w-full h-full object-cover">
                             <source src="videos/presentation.mp4" type="video/mp4">
@@ -210,14 +213,20 @@
                     <p id="hero-subtitle" class="text-sm md:text-lg uppercase tracking-[0.3em] mb-4 text-crepe-accent font-semibold transition-colors duration-500">
                         Des crêpes façon fast-food au coeur d'Aix-les-bains
                     </p>
-                    <h1 id="hero-title" class="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight">
+                    <h1 id="hero-title" class="text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight">
                         Compose, croque, <br> 
                         <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Régale-toi !</span>
                     </h1>
                     <p id="hero-desc" class="text-gray-300 text-lg md:text-xl mb-6 font-light max-w-2xl mx-auto">
                         Une fusion parfaite entre tradition bretonne et street-food moderne. Des ingrédients frais, une pâte maison, une expérience unique.
                     </p>
-                    <div class="flex justify-center mb-10">
+                    <div class="flex items-center justify-center gap-6 mb-6">
+                        <div id="hero-mobile-video-container" class="md:hidden w-24 aspect-[9/16] rounded-xl overflow-hidden shadow-lg border border-white/10 relative transition-opacity duration-500">
+                            <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                                <source src="videos/presentation.mp4" type="video/mp4">
+                            </video>
+                            <div class="absolute inset-0 bg-black/10"></div>
+                        </div>
                         <img src="images/halal.png" alt="Halal" class="w-14 h-14 md:w-20 md:h-20 opacity-90 hover:scale-110 transition-transform duration-300">
                     </div>
                     <div class="flex flex-col md:flex-row gap-4 justify-center">
@@ -239,16 +248,16 @@
         </section>
 
         <!-- THE SWITCHER (Floating Action Button) -->
-        <button onclick="toggleWorld()" id="switch-btn" class="fixed bottom-8 right-8 z-50 group overflow-hidden rounded-full p-[2px] focus:outline-none transition-transform duration-300 hover:scale-105 shadow-2xl">
+        <button onclick="toggleWorld()" id="switch-btn" class="fixed bottom-8 left-1/2 -translate-x-1/2 md:left-auto md:translate-x-0 md:right-8 z-50 group overflow-hidden rounded-full p-[2px] focus:outline-none transition-transform duration-300 hover:scale-105 shadow-2xl">
             <span id="switch-bg" class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-700 transition-opacity duration-300 opacity-100 group-hover:opacity-80"></span>
-            <div class="relative bg-black rounded-full px-6 py-3 flex items-center gap-3 transition-colors duration-300 group-hover:bg-black/80">
-                <span id="switch-text" class="font-display font-bold uppercase tracking-wider text-white text-sm">Côté Chicken</span>
-                <i id="switch-icon" data-lucide="flame" class="text-white w-5 h-5"></i>
+            <div class="relative bg-black rounded-full px-4 py-2 md:px-6 md:py-3 flex items-center gap-2 md:gap-3 transition-colors duration-300 group-hover:bg-black/80">
+                <span id="switch-text" class="font-display font-bold uppercase tracking-wider text-white text-xs md:text-sm">Côté Chicken</span>
+                <i id="switch-icon" data-lucide="flame" class="text-white w-4 h-4 md:w-5 md:h-5"></i>
             </div>
         </button>
 
         <!-- MENU SECTION -->
-        <section id="menu" class="py-24 px-4 relative">
+        <section id="menu" class="py-12 px-4 relative">
             <div class="max-w-7xl mx-auto">
                 <div class="text-center mb-16">
                     <h2 id="menu-title" class="text-5xl font-display font-bold mb-4">NOS CRÉATIONS</h2>
@@ -325,15 +334,15 @@
             </div>
             <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 text-center">
                 <button id="footer-cookie-link" class="text-xs text-gray-500 hover:text-white underline transition">Gestion des cookies</button>
+                <div class="mt-4 flex justify-center">
+                    <a href="https://exemple.fr" target="_blank" class="flex items-center gap-2 text-[10px] uppercase tracking-widest text-white/20 hover:text-white/80 transition-colors duration-300">
+                        <i data-lucide="code-2" class="w-3 h-3"></i>
+                        <span>By Dev</span>
+                    </a>
+                </div>
             </div>
         </section>
         
-        <!-- CREATOR CREDIT -->
-        <a href="https://exemple.fr" target="_blank" class="fixed bottom-8 left-8 z-50 px-5 py-2.5 rounded-full border border-cyan-400 text-cyan-400 font-display font-bold tracking-widest text-xs uppercase bg-black/90 backdrop-blur-md hover:bg-cyan-400 hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.8)] flex items-center gap-2">
-            <i data-lucide="code-2" class="w-4 h-4"></i>
-            <span>By Dev</span>
-        </a>
-
         <!-- COOKIE BANNER (CNIL Compliant) -->
         <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-neutral-900/95 backdrop-blur-md border-t border-white/10 p-6 z-[100] hidden flex-col md:flex-row items-center justify-between gap-6 shadow-2xl transform transition-transform duration-500 translate-y-full">
             <div class="flex-1">
@@ -546,10 +555,16 @@
                   // Toggle Hero Elements (Video & Compose Button) - Only for Crepe Mode
                   const heroLeft = document.getElementById('hero-left-col');
                   const heroRight = document.getElementById('hero-right-col');
+                  const heroMobileVideo = document.getElementById('hero-mobile-video-container');
+                  
                   heroLeft.style.opacity = targetMode === 'chicken' ? '0' : '1';
                   heroLeft.style.pointerEvents = targetMode === 'chicken' ? 'none' : 'auto';
                   heroRight.style.opacity = targetMode === 'chicken' ? '0' : '1';
                   heroRight.style.pointerEvents = targetMode === 'chicken' ? 'none' : 'auto';
+                  if(heroMobileVideo) {
+                      heroMobileVideo.style.opacity = targetMode === 'chicken' ? '0' : '1';
+                      heroMobileVideo.style.pointerEvents = targetMode === 'chicken' ? 'none' : 'auto';
+                  }
 
                   // Re-render Menu
                   renderMenu(data.menu);
@@ -696,7 +711,7 @@
                 // Remplacez 'G-XXXXXXXXXX' par votre vrai ID de mesure Google Analytics
                 const GA_ID = 'G-F28943YNMV'; 
 
-                if (GA_ID !== 'G-F28943YNMV') {
+                if (GA_ID !== 'G-XXXXXXXXXX') {
                     const script = document.createElement('script');
                     script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
                     script.async = true;
