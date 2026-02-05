@@ -1,0 +1,56 @@
+{
+  "crepe": {
+    "theme": "mode-crepe",
+    "brand": "LE 222",
+    "subtitle": "L'ART DE LA CRÊPE URBAINE",
+    "desc": "Une fusion parfaite entre tradition et street-food. Des ingrédients frais, une pâte maison, une expérience unique. Halal.",
+    "ctaColor": "bg-[#d4af37]",
+    "accentColor": "#d4af37",
+    "heroImage": "fond/222fondcrepe.png",
+    "menu": [
+      { "title": "Burger", "price": "6.20€", "desc": "Cheddar, oignons, salade, viande hachée, sauce biggy.", "img": "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=600" },
+      { "title": "La Bolo", "price": "6.80€", "desc": "Bolognaise, oignons, vache qui rit, poivrons.", "img": "https://images.unsplash.com/photo-1626202462615-5858022727ce?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Chèvre Miel", "price": "7.00€", "desc": "Escalope de poulet, chèvre, oignons, miel, crème fraîche.", "img": "https://images.unsplash.com/photo-1626372412520-2c7009476906?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Savoyarde", "price": "8.90€", "desc": "Raclette, oignons, pommes de terre, bacon, lardons, crème fraîche.", "img": "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=600" },
+      { "title": "La 222", "price": "8.50€", "desc": "Merguez, viande hachée, œuf, poivrons, olives, oignons, sauce barbecue.", "img": "https://images.unsplash.com/photo-1515467385969-9523f6e9c4c1?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Menu Étudiant", "price": "6.00€", "desc": "Crêpe (1 viande, 1 légume, 1 fromage, sauce) + Boisson.", "img": "https://images.unsplash.com/photo-1563148482-1df6b653427f?auto=format&fit=crop&q=80&w=600" }
+    ],
+    "supplements": [
+      { "title": "LES BASICS", "price": "0.50€", "items": ["Nutella", "Chantilly"] },
+      { "title": "LES GOURMANDISES", "price": "0.80€", "items": ["Kinder Bueno", "Kinder Bueno White", "Schoko-Bons", "Spéculoos", "M&M's", "Chocolat blanc", "Fraise", "Crunch"] },
+      { "title": "LES FRUITS", "price": "1.00€", "items": ["Banane", "Fraise"] }
+    ],
+    "switcherIcon": "flame",
+    "switcherText": "Côté Chicken",
+    "switcherGradient": "from-orange-600 to-red-700"
+  },
+  "chicken": {
+    "theme": "mode-chicken",
+    "brand": "CHICKEN SAVEUR <img src=\"images/sultana.png\" class=\"absolute left-full top-1/2 -translate-y-1/2 -ml-6 w-32 -rotate-12 pointer-events-none drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]\" alt=\"Sultana\">",
+    "subtitle": "LE FEU DU GOÛT",
+    "desc": "Panure croustillante épicée, marinades secrètes de 24h. Plongez dans l'univers du vrai poulet frit. Halal.",
+    "ctaColor": "bg-[#f97316]",
+    "accentColor": "#f97316",
+    "heroImage": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=2070&auto=format&fit=crop",
+    "menu": [
+      { "title": "Bucket Solo", "price": "9.90€", "desc": "5 Tenders épicés, frites maison, sauce 222.", "img": "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Burger 'The Boss'", "price": "11.50€", "desc": "Filet de poulet pané XXL, double cheddar, bacon.", "img": "https://images.unsplash.com/photo-1615557960916-5f4791effe9d?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Wings BBQ", "price": "8.00€", "desc": "8 Ailes de poulet laquées sauce BBQ fumée.", "img": "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Wrap Spicy", "price": "7.50€", "desc": "Tenders, salade, tomates, sauce samouraï.", "img": "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Box Partage", "price": "24.90€", "desc": "12 Tenders, 12 Wings, 4 Frites, 1L Boisson.", "img": "https://images.unsplash.com/photo-1513639776629-9269d0522c38?auto=format&fit=crop&q=80&w=600" },
+      { "title": "Salade César", "price": "10.00€", "desc": "Poulet croustillant, parmesan, croûtons.", "img": "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=600" }
+    ],
+    "desserts": [
+      { "title": "Milkshake", "price": "3.90€", "desc": "Base Vanille, Fraise ou Chocolat. 2 ingrédients au choix + 1 gourmandise incluse.", "img": "images/milkshake.png" },
+      { "title": "Smoothie", "price": "3.90€", "desc": "100% Fruits mixés. 2 fruits au choix : Fraise, Banane, Framboise, Mangue.", "img": "images/smoothie.png" }
+    ],
+    "supplements": [
+      { "title": "LES BASICS", "price": "0.50€", "items": ["Nutella", "Chantilly"] },
+      { "title": "LES GOURMANDISES", "price": "0.80€", "items": ["Kinder Bueno", "Kinder Bueno White", "Schoko-Bons", "Spéculoos", "M&M's", "Chocolat blanc", "Fraise", "Crunch"] },
+      { "title": "LES FRUITS", "price": "1.00€", "items": ["Banane", "Fraise"] }
+    ],
+    "switcherIcon": "wheat",
+    "switcherText": "Crêpes 🥞",
+    "switcherGradient": "from-slate-700 to-slate-900"
+  }
+}

@@ -1,0 +1,70 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images"
+public_folder: "images"
+
+collections:
+  - name: "pages"
+    label: "Pages"
+    files:
+      - name: "home"
+        label: "Page d'Accueil (Index)"
+        file: "content/home.json"
+        fields:
+          - label: "Mode Crêpe"
+            name: "crepe"
+            widget: "object"
+            fields:
+              - {label: "Titre", name: "brand", widget: "string"}
+              - {label: "Sous-titre", name: "subtitle", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+              - label: "Menu"
+                name: "menu"
+                widget: "list"
+                fields:
+                  - {label: "Nom", name: "title", widget: "string"}
+                  - {label: "Prix", name: "price", widget: "string"}
+                  - {label: "Description", name: "desc", widget: "text"}
+                  - {label: "Image", name: "img", widget: "image"}
+          
+          - label: "Mode Chicken"
+            name: "chicken"
+            widget: "object"
+            fields:
+              - {label: "Titre", name: "brand", widget: "string"}
+              - {label: "Sous-titre", name: "subtitle", widget: "string"}
+              - {label: "Description", name: "desc", widget: "text"}
+              - label: "Menu"
+                name: "menu"
+                widget: "list"
+                fields:
+                  - {label: "Nom", name: "title", widget: "string"}
+                  - {label: "Prix", name: "price", widget: "string"}
+                  - {label: "Description", name: "desc", widget: "text"}
+                  - {label: "Image", name: "img", widget: "image"}
+
+      - name: "compose"
+        label: "Page Compose Ta Crêpe"
+        file: "content/compose.json"
+        fields:
+          - label: "Coté Salé"
+            name: "sale"
+            widget: "object"
+            fields:
+              - {label: "Prix de base", name: "basePrice", widget: "string"}
+              - label: "Sections"
+                name: "sections"
+                widget: "object"
+                fields: 
+                  - label: "Viandes (Proteins)"
+                    name: "proteins"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
