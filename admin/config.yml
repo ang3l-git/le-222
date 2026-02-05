@@ -11,7 +11,7 @@ collections:
     files:
       - name: "home"
         label: "Page d'Accueil (Index)"
-        file: "content/home.json"
+        file: "admin/home.json"
         fields:
           - label: "Mode Crêpe"
             name: "crepe"
@@ -47,7 +47,7 @@ collections:
 
       - name: "compose"
         label: "Page Compose Ta Crêpe"
-        file: "content/compose.json"
+        file: "admin/compose.json"
         fields:
           - label: "Coté Salé"
             name: "sale"

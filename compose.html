@@ -56,12 +56,12 @@
     <!-- Navigation -->
     <nav class="fixed w-full z-50 top-0 left-0 glass-panel">
         <div class="mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
+            <div class="flex items-center justify-between h-16 md:h-20">
                 <a href="index.html" class="flex items-center gap-2 text-white hover:text-crepe-accent transition group">
                     <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform"></i>
-                    <span class="font-display font-bold tracking-wider">RETOUR</span>
+                    <span class="font-display font-bold tracking-wider text-sm md:text-base">RETOUR</span>
                 </a>
-                <h1 class="font-display text-2xl font-bold tracking-wider text-crepe-accent">
+                <h1 class="font-display text-xl md:text-2xl font-bold tracking-wider text-crepe-accent">
                     LE 222
                 </h1>
                 <div class="w-20"></div> <!-- Spacer for balance -->
@@ -70,7 +70,7 @@
     </nav>
 
     <!-- Main Content -->
-    <main class="pt-32 px-4 max-w-5xl mx-auto">
+    <main class="pt-24 md:pt-32 px-4 max-w-5xl mx-auto">
         
         <!-- Header -->
         <div class="text-center mb-16">
@@ -97,7 +97,110 @@
     <script>
         lucide.createIcons();
 
-        let MENU_DATA = {};
+        let MENU_DATA = {
+            sale: {
+                basePrice: "Base Crêpe + Emmental : 3.50€",
+                sections: {
+                    proteins: {
+                        title: "1. CHOISIS TES VIANDES",
+                        price: "1.30€ / supp",
+                        items: [
+                            { name: "Viande Hachée", img: "viandehachee.png" },
+                            { name: "Poulet Émincé", img: "poulet.png" },
+                            { name: "Chorizo", img: "chorizo.png" },
+                            { name: "Thon", img: "thon.png" },
+                            { name: "Lardons", img: "lardons.png" },
+                            { name: "Kebab", img: "kebab.png" },
+                            { name: "Bacon", img: "bacon.png" },
+                            { name: "Cordon Bleu", img: "cordonbleu.png" },
+                            { name: "Tenders", img: "tenders.png" }
+                        ]
+                    },
+                    veggies: {
+                        title: "2. LÉGUMES & OEUF",
+                        price: "0.60€ / supp",
+                        items: [
+                            { name: "Champignons", img: "champignons.png" },
+                            { name: "Cornichons", img: "cornichons.png" },
+                            { name: "Pommes de terre", img: "pommesdeterre.png" },
+                            { name: "Poivrons", img: "poivrons.png" },
+                            { name: "Oignons Frits", img: "oignonsfrits.png" },
+                            { name: "Oignons Frais", img: "oignonsfrais.png" },
+                            { name: "Salade", img: "salade.png" },
+                            { name: "Olives", img: "olives.png" },
+                            { name: "Oeuf", img: "oeuf.png" }
+                        ]
+                    },
+                    cheeses: {
+                        title: "3. FROMAGES",
+                        price: "0.80€ / supp",
+                        items: [
+                            { name: "Chèvre", img: "chevre.png" },
+                            { name: "Boursin", img: "boursin.png" },
+                            { name: "Vache qui rit", img: "vachequirit.png" },
+                            { name: "Cheddar", img: "cheddar.png" },
+                            { name: "Mozzarella", img: "mozzarella.png" },
+                            { name: "Raclette", img: "raclette.png" },
+                            { name: "Sauce Fromagère", img: "saucefromagere.png" },
+                            { name: "Crème Fraîche", img: "cremefraiche.png" }
+                        ]
+                    },
+                    sauces: {
+                        title: "4. SAUCES",
+                        price: "Gratuit",
+                        items: [
+                            { name: "Algérienne" },
+                            { name: "Mayonnaise" },
+                            { name: "Ketchup" },
+                            { name: "Biggy" },
+                            { name: "Chili Thaï" },
+                            { name: "Barbecue" },
+                            { name: "Blanche" },
+                            { name: "Poivre" },
+                            { name: "Curry" },
+                            { name: "Harissa" },
+                            { name: "Andalouse" },
+                            { name: "Tartare" }
+                        ]
+                    }
+                }
+            },
+            sucre: {
+                basePrice: "Base Crêpe Sucrée : 3.00€",
+                sections: {
+                    basics: {
+                        title: "1. LES BASICS",
+                        price: "0.50€ / portion",
+                        items: [
+                            { name: "Nutella", img: "nutella.png" },
+                            { name: "Chantilly", img: "chantilly.png" }
+                        ]
+                    },
+                    gourmandises: {
+                        title: "2. LES GOURMANDISES",
+                        price: "0.80€ / portion",
+                        items: [
+                            { name: "Kinder Bueno", img: "kinderbueno.png" },
+                            { name: "Kinder Bueno White", img: "kinderbuenowhite.png" },
+                            { name: "Schoko-Bons", img: "schokobons.png" },
+                            { name: "Spéculoos", img: "speculoos.png" },
+                            { name: "M&M's", img: "mms.png" },
+                            { name: "Chocolat blanc", img: "chocolatblanc.png" },
+                            { name: "Fraise", img: "fraise.png" },
+                            { name: "Crunch", img: "crunch.png" }
+                        ]
+                    },
+                    fruits: {
+                        title: "3. LES FRUITS",
+                        price: "1.00€ / portion",
+                        items: [
+                            { name: "Banane", img: "banane.png" },
+                            { name: "Fraise", img: "fraise.png" }
+                        ]
+                    }
+                }
+            }
+        };
 
         let currentMode = 'sale';
 
@@ -167,13 +270,17 @@
         document.head.appendChild(style);
         
         // Fetch data on load
-        fetch('content/compose.json')
-            .then(response => response.json())
-            .then(data => {
-                MENU_DATA = data;
-                renderBuilder();
+        // We keep the default data above, but try to update it from CMS if possible
+        fetch('admin/compose.json?v=' + Date.now())
+            .then(response => {
+                if(response.ok) return response.json();
+                throw new Error('Network response was not ok');
             })
-            .catch(error => console.error('Error loading menu data:', error));
+            .then(data => { if(data) { MENU_DATA = data; renderBuilder(); } })
+            .catch(error => console.log('Using default data (CMS content not loaded):', error));
+            
+        // Initial render with default data
+        renderBuilder();
     </script>
 </body>
 </html>
