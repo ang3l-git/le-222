@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Compose Ta Crêpe - Le 222</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Oswald"', 'sans-serif'],
+                    },
+                    colors: {
+                        crepe: {
+                            accent: 'rgb(var(--accent-rgb) / <alpha-value>)',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        :root {
+            --accent-rgb: 212 175 55; /* Gold #d4af37 */
+        }
+        body { background-color: #000000; color: #e2e8f0; }
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.8);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        .ingredient-card {
+            transition: all 0.2s ease;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #000; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+    </style>
+</head>
+<body class="min-h-screen relative pb-24">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 glass-panel">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <a href="index.html" class="flex items-center gap-2 text-white hover:text-crepe-accent transition group">
+                    <i data-lucide="arrow-left" class="group-hover:-translate-x-1 transition-transform"></i>
+                    <span class="font-display font-bold tracking-wider">RETOUR</span>
+                </a>
+                <h1 class="font-display text-2xl font-bold tracking-wider text-crepe-accent">
+                    LE 222
+                </h1>
+                <div class="w-20"></div> <!-- Spacer for balance -->
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-32 px-4 max-w-5xl mx-auto">
+        
+        <!-- Header -->
+        <div class="text-center mb-16">
+            <span class="text-crepe-accent text-sm font-bold tracking-[0.3em] uppercase">Sur Mesure</span>
+            <h2 class="text-5xl md:text-7xl font-display font-bold mt-2 mb-6">COMPOSE TA CRÊPE</h2>
+            
+            <div class="flex justify-center gap-4 mb-6">
+                <button onclick="setMode('sale')" id="btn-sale" class="px-6 py-2 rounded-full font-bold transition-all bg-crepe-accent text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]">SALÉ</button>
+                <button onclick="setMode('sucre')" id="btn-sucre" class="px-6 py-2 rounded-full font-bold transition-all bg-white/5 text-white hover:bg-white/10 border border-white/10">SUCRÉ</button>
+            </div>
+
+            <div class="inline-block px-6 py-2 rounded-full border border-crepe-accent/30 bg-crepe-accent/10">
+                <p id="base-price" class="text-crepe-accent font-bold">Base Crêpe + Emmental : 3.50€</p>
+            </div>
+        </div>
+
+        <!-- Builder Sections -->
+        <div id="builder-container" class="space-y-16">
+            <!-- Sections injected by JS -->
+        </div>
+
+    </main>
+
+    <script>
+        lucide.createIcons();
+
+        const MENU_DATA = {
+            sale: {
+                basePrice: "Base Crêpe + Emmental : 3.50€",
+                sections: {
+                    proteins: {
+                        title: "1. CHOISIS TES VIANDES",
+                        price: "1.30€ / supp",
+                        items: [
+                            { name: "Viande Hachée", img: "viandehachee.png" },
+                            { name: "Poulet Émincé", img: "poulet.png" },
+                            { name: "Chorizo", img: "chorizo.png" },
+                            { name: "Thon", img: "thon.png" },
+                            { name: "Lardons", img: "lardons.png" },
+                            { name: "Kebab", img: "kebab.png" },
+                            { name: "Bacon", img: "bacon.png" },
+                            { name: "Cordon Bleu", img: "cordonbleu.png" },
+                            { name: "Tenders", img: "tenders.png" }
+                        ]
+                    },
+                    veggies: {
+                        title: "2. LÉGUMES & OEUF",
+                        price: "0.60€ / supp",
+                        items: [
+                            { name: "Champignons", img: "champignons.png" },
+                            { name: "Cornichons", img: "cornichons.png" },
+                            { name: "Pommes de terre", img: "pommesdeterre.png" },
+                            { name: "Poivrons", img: "poivrons.png" },
+                            { name: "Oignons Frits", img: "oignonsfrits.png" },
+                            { name: "Oignons Frais", img: "oignonsfrais.png" },
+                            { name: "Salade", img: "salade.png" },
+                            { name: "Olives", img: "olives.png" },
+                            { name: "Oeuf", img: "oeuf.png" }
+                        ]
+                    },
+                    cheeses: {
+                        title: "3. FROMAGES",
+                        price: "0.80€ / supp",
+                        items: [
+                            { name: "Chèvre", img: "chevre.png" },
+                            { name: "Boursin", img: "boursin.png" },
+                            { name: "Vache qui rit", img: "vachequirit.png" },
+                            { name: "Cheddar", img: "cheddar.png" },
+                            { name: "Mozzarella", img: "mozzarella.png" },
+                            { name: "Raclette", img: "raclette.png" },
+                            { name: "Sauce Fromagère", img: "saucefromagere.png" },
+                            { name: "Crème Fraîche", img: "cremefraiche.png" }
+                        ]
+                    },
+                    sauces: {
+                        title: "4. SAUCES",
+                        price: "Gratuit",
+                        items: [
+                            { name: "Algérienne" },
+                            { name: "Mayonnaise" },
+                            { name: "Ketchup" },
+                            { name: "Biggy" },
+                            { name: "Chili Thaï" },
+                            { name: "Barbecue" },
+                            { name: "Blanche" },
+                            { name: "Poivre" },
+                            { name: "Curry" },
+                            { name: "Harissa" },
+                            { name: "Andalouse" },
+                            { name: "Tartare" }
+                        ]
+                    }
+                }
+            },
+            sucre: {
+                basePrice: "Base Crêpe Sucrée : 3.00€",
+                sections: {
+                    basics: {
+                        title: "1. LES BASICS",
+                        price: "0.50€ / portion",
+                        items: [
+                            { name: "Nutella", img: "nutella.png" },
+                            { name: "Chantilly", img: "chantilly.png" }
+                        ]
+                    },
+                    gourmandises: {
+                        title: "2. LES GOURMANDISES",
+                        price: "0.80€ / portion",
+                        items: [
+                            { name: "Kinder Bueno", img: "kinderbueno.png" },
+                            { name: "Kinder Bueno White", img: "kinderbuenowhite.png" },
+                            { name: "Schoko-Bons", img: "schokobons.png" },
+                            { name: "Spéculoos", img: "speculoos.png" },
+                            { name: "M&M's", img: "mms.png" },
+                            { name: "Chocolat blanc", img: "chocolatblanc.png" },
+                            { name: "Fraise", img: "fraise.png" },
+                            { name: "Crunch", img: "crunch.png" }
+                        ]
+                    },
+                    fruits: {
+                        title: "3. LES FRUITS",
+                        price: "1.00€ / portion",
+                        items: [
+                            { name: "Banane", img: "banane.png" },
+                            { name: "Fraise", img: "fraise.png" }
+                        ]
+                    }
+                }
+            }
+        };
+
+        let currentMode = 'sale';
+
+        function setMode(mode) {
+            currentMode = mode;
+            
+            const root = document.documentElement;
+            // Update buttons
+            const btnSale = document.getElementById('btn-sale');
+            const btnSucre = document.getElementById('btn-sucre');
+            
+            if (mode === 'sale') {
+                root.style.setProperty('--accent-rgb', '212 175 55');
+                btnSale.className = "px-6 py-2 rounded-full font-bold transition-all bg-crepe-accent text-black shadow-[0_0_15px_rgba(212,175,55,0.3)]";
+                btnSucre.className = "px-6 py-2 rounded-full font-bold transition-all bg-white/5 text-white hover:bg-white/10 border border-white/10";
+            } else {
+                root.style.setProperty('--accent-rgb', '236 72 153'); // Pink #ec4899
+                btnSale.className = "px-6 py-2 rounded-full font-bold transition-all bg-white/5 text-white hover:bg-white/10 border border-white/10";
+                btnSucre.className = "px-6 py-2 rounded-full font-bold transition-all bg-crepe-accent text-black shadow-[0_0_15px_rgba(236,72,153,0.3)]";
+            }
+
+            // Update base price
+            document.getElementById('base-price').textContent = MENU_DATA[mode].basePrice;
+
+            renderBuilder();
+        }
+
+        function renderBuilder() {
+            const container = document.getElementById('builder-container');
+            container.innerHTML = '';
+            
+            const data = MENU_DATA[currentMode].sections;
+            
+            Object.entries(data).forEach(([key, category], index) => {
+                const section = document.createElement('div');
+                section.className = "animate-fade-in-up";
+                section.style.animationDelay = `${index * 0.1}s`;
+                
+                let gridHtml = category.items.map(item => `
+                    <div class="ingredient-card cursor-pointer relative group bg-white/5 border border-white/10 rounded-xl p-3 flex items-center gap-4">
+                        ${item.img ? `<img src="images/${item.img}" alt="${item.name}" class="w-12 h-12 rounded-md object-cover bg-white/10 flex-shrink-0">` : ''}
+                        <span class="font-bold text-gray-200 transition">${item.name}</span>
+                    </div>
+                `).join('');
+
+                section.innerHTML = `
+                    <div class="flex items-end justify-between mb-6 border-b border-white/10 pb-4">
+                        <h3 class="text-3xl font-display font-bold text-white">${category.title}</h3>
+                        <span class="text-crepe-accent font-mono text-sm">${category.price}</span>
+                    </div>
+                    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                        ${gridHtml}
+                    </div>
+                `;
+                
+                container.appendChild(section);
+            });
+
+        }
+
+        // Simple fade in animation
+        const style = document.createElement('style');
+        style.innerHTML = `
+            @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+            .animate-fade-in-up { animation: fadeInUp 0.6s ease-out forwards; opacity: 0; }
+        `;
+        document.head.appendChild(style);
+
+        renderBuilder();
+    </script>
+</body>
+</html>

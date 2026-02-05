@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Le 222 - Crêperie & Chicken Saveur</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;500;700&family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- GSAP for High-End Animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+                        display: ['"Oswald"', 'sans-serif'],
+                    },
+                    colors: {
+                        crepe: {
+                            dark: '#000000', // Pure Black
+                            accent: '#d4af37', // Gold
+                            light: '#e2e8f0',
+                        },
+                        chicken: {
+                            dark: '#050000', // Almost Black with tiniest red hint
+                            accent: '#f97316', // Orange 500
+                            light: '#fecaca',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            overflow-x: hidden;
+            transition: background-color 0.8s ease;
+        }
+
+        /* Styles pour le mode Crêpe (Défaut) */
+        body.mode-crepe {
+            background-color: #000000;
+            color: #e2e8f0;
+        }
+        
+        /* Styles pour le mode Chicken */
+        body.mode-chicken {
+            background-color: #0a0101; /* Extremely dark red/black */
+            color: #fff1f2;
+        }
+
+        .glass-panel {
+            background: rgba(0, 0, 0, 0.5); /* Darker glass */
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Typography outlines for style */
+        .outline-text {
+            -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+            color: transparent;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #000;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 4px;
+        }
+
+        /* Loader Animation */
+        #transition-overlay {
+            clip-path: circle(0% at 50% 50%);
+            pointer-events: none;
+            z-index: 9999;
+        }
+        
+        /* Particle Canvas */
+        #particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .food-card {
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: rgba(20, 20, 20, 0.6);
+        }
+        .food-card:hover {
+            transform: translateY(-10px);
+            background-color: rgba(40, 40, 40, 0.8);
+        }
+
+        /* Floating Button Animation */
+        @keyframes float {
+            0% { transform: translateY(0px); box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); }
+            50% { transform: translateY(-10px); box-shadow: 0 25px 15px 0px rgba(0,0,0,0.2); }
+            100% { transform: translateY(0px); box-shadow: 0 5px 15px 0px rgba(0,0,0,0.6); }
+        }
+        .floating-btn {
+            animation: float 4s ease-in-out infinite;
+        }
+
+        /* Hamburger Animation */
+        .hamburger-line {
+            transition: all 0.3s ease;
+        }
+        .group:hover .hamburger-line:nth-child(1) { width: 100%; }
+        .group:hover .hamburger-line:nth-child(3) { width: 100%; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body class="mode-crepe min-h-screen relative">
+
+    <!-- Particle Background -->
+    <canvas id="particles"></canvas>
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 top-0 left-0 glass-panel">
+        <div class="mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0">
+                    <h1 id="brand-logo" class="relative font-display text-3xl font-bold tracking-wider text-crepe-accent transition-colors duration-500">
+                        LE 222
+                    </h1>
+                </div>
+                
+                <!-- HAMBURGER BUTTON (White) -->
+                <div>
+                    <button onclick="toggleMenu()" class="text-white bg-transparent p-2 group focus:outline-none">
+                        <div class="w-8 flex flex-col items-end gap-1.5">
+                            <span class="hamburger-line block h-[2px] w-8 bg-white"></span>
+                            <span class="hamburger-line block h-[2px] w-6 bg-white"></span>
+                            <span class="hamburger-line block h-[2px] w-4 bg-white"></span>
+                        </div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- FULLSCREEN MENU OVERLAY -->
+    <div id="fullscreen-menu" class="fixed inset-0 bg-black/95 z-40 translate-x-full transition-transform duration-500 ease-[cubic-bezier(0.76,0,0.24,1)] flex items-center justify-center backdrop-blur-xl">
+        <div class="flex flex-col items-center space-y-10 text-center">
+            <a href="#home" onclick="toggleMenu()" class="menu-link text-5xl md:text-7xl font-display font-bold text-white hover:text-gray-400 transition-colors tracking-tighter opacity-0 translate-y-10">ACCUEIL</a>
+            <a href="#menu" onclick="toggleMenu()" class="menu-link text-5xl md:text-7xl font-display font-bold text-white hover:text-gray-400 transition-colors tracking-tighter opacity-0 translate-y-10">LA CARTE</a>
+            <a href="#contact" onclick="toggleMenu()" class="menu-link text-5xl md:text-7xl font-display font-bold text-white hover:text-gray-400 transition-colors tracking-tighter opacity-0 translate-y-10">CONTACT</a>
+            
+            <button onclick="toggleMenu()" class="mt-12 text-gray-500 hover:text-white transition p-4 border border-white/20 rounded-full opacity-0 translate-y-10 menu-link">
+                <i data-lucide="x" class="w-8 h-8"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- TRANSITION OVERLAY (The fire/curtain effect) -->
+    <div id="transition-overlay" class="fixed inset-0 bg-orange-600 flex items-center justify-center">
+        <h2 class="text-6xl font-display font-bold text-white tracking-widest uppercase">
+            Chicken<br>Saveur
+        </h2>
+    </div>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="pt-20">
+        
+        <!-- HERO SECTION -->
+        <section id="home" class="relative h-[90vh] flex items-center justify-center overflow-hidden">
+            <!-- Dynamic Background Image (Mock) -->
+            <div id="hero-bg" class="absolute inset-0 bg-cover bg-center transition-all duration-1000 opacity-30 transform scale-105" 
+                 style="background-image: url('fond/222fondcrepe.png');">
+            </div>
+            
+            <!-- Dark Gradient Overlay for extra blackness -->
+            <div class="absolute inset-0 bg-gradient-to-b from-black via-black/50 to-black"></div>
+
+            <div class="relative z-10 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
+                
+                <!-- Left: Video Presentation (Smaller) -->
+                <div id="hero-left-col" class="md:col-span-3 flex justify-center md:justify-start order-1 md:order-1 transition-opacity duration-500">
+                    <div class="w-48 aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl border border-white/10 relative group transform hover:scale-105 transition-transform duration-500">
+                        <video autoplay loop muted playsinline class="w-full h-full object-cover">
+                            <source src="videos/presentation.mp4" type="video/mp4">
+                        </video>
+                        <div class="absolute inset-0 bg-black/10"></div>
+                    </div>
+                </div>
+
+                <!-- Center: Text Content -->
+                <div class="md:col-span-6 text-center order-2 md:order-2">
+                    <p id="hero-subtitle" class="text-sm md:text-lg uppercase tracking-[0.3em] mb-4 text-crepe-accent font-semibold transition-colors duration-500">
+                        Des crêpes façon fast-food au coeur d'Aix-les-bains
+                    </p>
+                    <h1 id="hero-title" class="text-5xl md:text-7xl lg:text-8xl font-display font-bold mb-6 leading-tight">
+                        Compose, croque, <br> 
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">Régale-toi !</span>
+                    </h1>
+                    <p id="hero-desc" class="text-gray-300 text-lg md:text-xl mb-6 font-light max-w-2xl mx-auto">
+                        Une fusion parfaite entre tradition bretonne et street-food moderne. Des ingrédients frais, une pâte maison, une expérience unique.
+                    </p>
+                    <div class="flex justify-center mb-10">
+                        <img src="images/halal.png" alt="Halal" class="w-14 h-14 md:w-20 md:h-20 opacity-90 hover:scale-110 transition-transform duration-300">
+                    </div>
+                    <div class="flex flex-col md:flex-row gap-4 justify-center">
+                        <a href="#menu" id="cta-primary" class="bg-crepe-accent text-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-white transition-all duration-300 shadow-lg shadow-crepe-accent/20">
+                            Voir la Carte
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Right: Compose Button -->
+                <div id="hero-right-col" class="md:col-span-3 flex justify-center md:justify-end order-3 transition-opacity duration-500">
+                    <a href="compose.html" class="group relative flex flex-col items-center justify-center w-32 h-32 rounded-full border border-white/20 bg-white/5 backdrop-blur-sm hover:bg-white/10 transition-all duration-300">
+                        <i data-lucide="pen-tool" class="w-6 h-6 mb-2 text-crepe-accent"></i>
+                        <span class="text-[10px] font-bold uppercase tracking-widest text-center">Compose<br>Ta Crêpe</span>
+                        <div class="absolute inset-0 rounded-full border border-white/10 scale-110 opacity-0 group-hover:opacity-100 group-hover:scale-125 transition-all duration-500"></div>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- THE SWITCHER (Floating Action Button) -->
+        <button onclick="toggleWorld()" id="switch-btn" class="fixed bottom-8 right-8 z-50 group overflow-hidden rounded-full p-[2px] focus:outline-none transition-transform duration-300 hover:scale-105 shadow-2xl">
+            <span id="switch-bg" class="absolute inset-0 bg-gradient-to-r from-orange-600 to-red-700 transition-opacity duration-300 opacity-100 group-hover:opacity-80"></span>
+            <div class="relative bg-black rounded-full px-6 py-3 flex items-center gap-3 transition-colors duration-300 group-hover:bg-black/80">
+                <span id="switch-text" class="font-display font-bold uppercase tracking-wider text-white text-sm">Côté Chicken</span>
+                <i id="switch-icon" data-lucide="flame" class="text-white w-5 h-5"></i>
+            </div>
+        </button>
+
+        <!-- MENU SECTION -->
+        <section id="menu" class="py-24 px-4 relative">
+            <div class="max-w-7xl mx-auto">
+                <div class="text-center mb-16">
+                    <h2 id="menu-title" class="text-5xl font-display font-bold mb-4">NOS CRÉATIONS</h2>
+                    <div id="menu-divider" class="h-1 w-24 bg-crepe-accent mx-auto"></div>
+                </div>
+
+                <!-- DYNAMIC GRID -->
+                <div id="menu-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <!-- Items will be injected by JS -->
+                </div>
+                
+                <!-- DESSERTS SECTION (Hidden by default) -->
+                <div id="desserts-container" class="hidden mt-24"></div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact" class="py-24 px-4 bg-black/40">
+            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h2 class="text-4xl font-display font-bold mb-6">NOUS TROUVER</h2>
+                    <p class="text-gray-400 mb-8">
+                        Halal • Sur place • À emporter<br>Venez vivre l'expérience sur place ou commandez à emporter.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-crepe-accent icon-container">
+                                <i data-lucide="map-pin"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Adresse</h3>
+                                <p class="text-gray-400">20 chemin des Burnets, 73100 Aix-les-Bains</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-crepe-accent icon-container">
+                                <i data-lucide="phone"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Téléphone</h3>
+                                <p class="text-gray-400">06 67 43 18 06</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center text-crepe-accent icon-container">
+                                <i data-lucide="clock"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold">Horaires</h3>
+                                <p class="text-gray-400 text-sm">Mar - Jeu: 11h00 - 23h00</p>
+                                <p class="text-gray-400 text-sm">Ven - Dim: 18h00 - 01h00</p>
+                                <p class="text-gray-500 text-xs">Lundi: Fermé</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-12 flex space-x-4">
+                        <a href="https://instagram.com/LE_222_AIX73" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition">
+                            <i data-lucide="instagram" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://www.facebook.com/people/Le-222-aix73/100063568456484/" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition">
+                            <i data-lucide="facebook" class="w-5 h-5"></i>
+                        </a>
+                        <a href="https://snapchat.com/add/le222-aix73" target="_blank" class="w-10 h-10 rounded-full border border-white/20 flex items-center justify-center hover:bg-white hover:text-black transition">
+                            <i data-lucide="ghost" class="w-5 h-5"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="h-96 rounded-2xl overflow-hidden glass-panel relative border border-white/10">
+                   <img src="images/GoogleMaps.png" alt="Carte Le 222" class="w-full h-full object-cover">
+                </div>
+            </div>
+            <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-white/10 text-center">
+                <button id="footer-cookie-link" class="text-xs text-gray-500 hover:text-white underline transition">Gestion des cookies</button>
+            </div>
+        </section>
+        
+        <!-- CREATOR CREDIT -->
+        <a href="https://exemple.fr" target="_blank" class="fixed bottom-8 left-8 z-50 px-5 py-2.5 rounded-full border border-cyan-400 text-cyan-400 font-display font-bold tracking-widest text-xs uppercase bg-black/90 backdrop-blur-md hover:bg-cyan-400 hover:text-black transition-all duration-300 shadow-[0_0_15px_rgba(34,211,238,0.4)] hover:shadow-[0_0_25px_rgba(34,211,238,0.8)] flex items-center gap-2">
+            <i data-lucide="code-2" class="w-4 h-4"></i>
+            <span>By Dev</span>
+        </a>
+
+        <!-- COOKIE BANNER (CNIL Compliant) -->
+        <div id="cookie-banner" class="fixed bottom-0 left-0 w-full bg-neutral-900/95 backdrop-blur-md border-t border-white/10 p-6 z-[100] hidden flex-col md:flex-row items-center justify-between gap-6 shadow-2xl transform transition-transform duration-500 translate-y-full">
+            <div class="flex-1">
+                <h3 class="font-display font-bold text-white text-lg mb-2">🍪 Gestion des cookies</h3>
+                <p class="text-gray-400 text-sm leading-relaxed max-w-3xl">
+                    Nous utilisons des cookies pour optimiser votre expérience et analyser notre trafic. 
+                    Conformément à la réglementation, vous pouvez choisir d'activer ou non ces traceurs.
+                </p>
+            </div>
+            <div class="flex flex-wrap gap-3 shrink-0">
+                <button id="btn-accept-all" class="px-6 py-2.5 bg-white text-black font-bold rounded-full hover:bg-gray-200 transition text-sm">Tout accepter</button>
+                <button id="btn-reject-all" class="px-6 py-2.5 border border-white/30 text-white font-bold rounded-full hover:bg-white/10 transition text-sm">Tout refuser</button>
+                <button id="btn-customize" class="px-6 py-2.5 text-gray-400 underline hover:text-white transition text-sm">Personnaliser</button>
+            </div>
+        </div>
+
+        <!-- COOKIE PREFERENCES MODAL -->
+        <div id="cookie-modal" class="fixed inset-0 bg-black/90 z-[101] hidden items-center justify-center p-4 backdrop-blur-sm">
+            <div class="bg-neutral-900 border border-white/10 rounded-2xl p-6 md:p-8 max-w-lg w-full shadow-2xl relative">
+                <button id="btn-close-modal" class="absolute top-4 right-4 text-gray-500 hover:text-white"><i data-lucide="x"></i></button>
+                <h3 class="text-2xl font-display font-bold text-white mb-6">Préférences</h3>
+                
+                <div class="space-y-6 mb-8">
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="font-bold text-white mb-1">Cookies Essentiels</p>
+                            <p class="text-xs text-gray-400">Nécessaires au fonctionnement technique du site (panier, session).</p>
+                        </div>
+                        <input type="checkbox" checked disabled class="mt-1 accent-crepe-accent w-5 h-5 cursor-not-allowed opacity-50">
+                    </div>
+                    <div class="flex items-start justify-between gap-4">
+                        <div>
+                            <p class="font-bold text-white mb-1">Mesure d'audience</p>
+                            <p class="text-xs text-gray-400">Google Analytics, Pixel Facebook. Nous aident à améliorer le site.</p>
+                        </div>
+                        <input type="checkbox" id="consent-analytics" class="mt-1 accent-crepe-accent w-5 h-5 cursor-pointer">
+                    </div>
+                </div>
+
+                <div class="flex justify-end gap-3 pt-4 border-t border-white/10">
+                    <button id="btn-save-preferences" class="px-6 py-2 bg-crepe-accent text-black font-bold rounded-full hover:brightness-110 transition">Enregistrer mes choix</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script>
+        // --- DATA CONFIGURATION ---
+        const DATA = {
+            crepe: {
+                theme: 'mode-crepe',
+                brand: 'LE 222',
+                subtitle: "L'ART DE LA CRÊPE URBAINE",
+                desc: "Une fusion parfaite entre tradition et street-food. Des ingrédients frais, une pâte maison, une expérience unique. Halal.",
+                ctaColor: 'bg-[#d4af37]',
+                accentColor: '#d4af37',
+                heroImage: 'fond/222fondcrepe.png',
+                menu: [
+                    { title: "Burger", price: "6.20€", desc: "Cheddar, oignons, salade, viande hachée, sauce biggy.", img: "https://images.unsplash.com/photo-1565557623262-b51c2513a641?auto=format&fit=crop&q=80&w=600" },
+                    { title: "La Bolo", price: "6.80€", desc: "Bolognaise, oignons, vache qui rit, poivrons.", img: "https://images.unsplash.com/photo-1626202462615-5858022727ce?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Chèvre Miel", price: "7.00€", desc: "Escalope de poulet, chèvre, oignons, miel, crème fraîche.", img: "https://images.unsplash.com/photo-1626372412520-2c7009476906?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Savoyarde", price: "8.90€", desc: "Raclette, oignons, pommes de terre, bacon, lardons, crème fraîche.", img: "https://images.unsplash.com/photo-1569718212165-3a8278d5f624?auto=format&fit=crop&q=80&w=600" },
+                    { title: "La 222", price: "8.50€", desc: "Merguez, viande hachée, œuf, poivrons, olives, oignons, sauce barbecue.", img: "https://images.unsplash.com/photo-1515467385969-9523f6e9c4c1?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Menu Étudiant", price: "6.00€", desc: "Crêpe (1 viande, 1 légume, 1 fromage, sauce) + Boisson.", img: "https://images.unsplash.com/photo-1563148482-1df6b653427f?auto=format&fit=crop&q=80&w=600" },
+                ],
+                supplements: [
+                    { title: "LES BASICS", price: "0.50€", items: ["Nutella", "Chantilly"] },
+                    { title: "LES GOURMANDISES", price: "0.80€", items: ["Kinder Bueno", "Kinder Bueno White", "Schoko-Bons", "Spéculoos", "M&M's", "Chocolat blanc", "Fraise", "Crunch"] },
+                    { title: "LES FRUITS", price: "1.00€", items: ["Banane", "Fraise"] }
+                ],
+                switcherIcon: 'flame',
+                switcherText: 'Côté Chicken',
+                switcherGradient: 'from-orange-600 to-red-700'
+            },
+            chicken: {
+                theme: 'mode-chicken',
+                brand: 'CHICKEN SAVEUR <img src="images/sultana.png" class="absolute left-full top-1/2 -translate-y-1/2 ml-3 w-28 pointer-events-none drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]" alt="Sultana">',
+                brand: 'CHICKEN SAVEUR <img src="images/sultana.png" class="absolute left-full top-1/2 -translate-y-1/2 -ml-6 w-32 -rotate-12 pointer-events-none drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]" alt="Sultana">',
+                subtitle: "LE FEU DU GOÛT",
+                desc: "Panure croustillante épicée, marinades secrètes de 24h. Plongez dans l'univers du vrai poulet frit. Halal.",
+                ctaColor: 'bg-[#f97316]',
+                accentColor: '#f97316',
+                heroImage: 'https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=2070&auto=format&fit=crop', // Fried Chicken
+                menu: [
+                    { title: "Bucket Solo", price: "9.90€", desc: "5 Tenders épicés, frites maison, sauce 222.", img: "https://images.unsplash.com/photo-1626645738196-c2a7c87a8f58?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Burger 'The Boss'", price: "11.50€", desc: "Filet de poulet pané XXL, double cheddar, bacon.", img: "https://images.unsplash.com/photo-1615557960916-5f4791effe9d?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Wings BBQ", price: "8.00€", desc: "8 Ailes de poulet laquées sauce BBQ fumée.", img: "https://images.unsplash.com/photo-1567620832903-9fc6debc209f?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Wrap Spicy", price: "7.50€", desc: "Tenders, salade, tomates, sauce samouraï.", img: "https://images.unsplash.com/photo-1626700051175-6818013e1d4f?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Box Partage", price: "24.90€", desc: "12 Tenders, 12 Wings, 4 Frites, 1L Boisson.", img: "https://images.unsplash.com/photo-1513639776629-9269d0522c38?auto=format&fit=crop&q=80&w=600" },
+                    { title: "Salade César", price: "10.00€", desc: "Poulet croustillant, parmesan, croûtons.", img: "https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=600" },
+                ],
+                desserts: [
+                    { title: "Milkshake", price: "3.90€", desc: "Base Vanille, Fraise ou Chocolat. 2 ingrédients au choix + 1 gourmandise incluse.", img: "images/milkshake.png" },
+                    { title: "Smoothie", price: "3.90€", desc: "100% Fruits mixés. 2 fruits au choix : Fraise, Banane, Framboise, Mangue.", img: "images/smoothie.png" }
+                ],
+                supplements: [
+                    { title: "LES BASICS", price: "0.50€", items: ["Nutella", "Chantilly"] },
+                    { title: "LES GOURMANDISES", price: "0.80€", items: ["Kinder Bueno", "Kinder Bueno White", "Schoko-Bons", "Spéculoos", "M&M's", "Chocolat blanc", "Fraise", "Crunch"] },
+                    { title: "LES FRUITS", price: "1.00€", items: ["Banane", "Fraise"] }
+                ],
+                switcherIcon: 'wheat',
+                switcherText: 'Crêpes 🥞',
+                switcherGradient: 'from-slate-700 to-slate-900'
+            }
+        };
+
+        let currentMode = 'crepe';
+
+        // --- INIT ICONS ---
+        lucide.createIcons();
+
+        // --- MENU LOGIC ---
+        function toggleMenu() {
+            const menu = document.getElementById('fullscreen-menu');
+            const isClosed = menu.classList.contains('translate-x-full');
+            
+            if (isClosed) {
+                menu.classList.remove('translate-x-full');
+                // GSAP animation for links
+                gsap.to(".menu-link", {
+                    y: 0, 
+                    opacity: 1, 
+                    stagger: 0.1, 
+                    duration: 0.6,
+                    ease: "power2.out",
+                    delay: 0.2
+                });
+            } else {
+                menu.classList.add('translate-x-full');
+                gsap.to(".menu-link", {
+                    y: 10, 
+                    opacity: 0, 
+                    duration: 0.3
+                });
+            }
+        }
+
+        // --- RENDER FUNCTION ---
+        function renderMenu(items) {
+            const grid = document.getElementById('menu-grid');
+            grid.innerHTML = items.map((item, index) => `
+                <div class="food-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-white/30" style="animation: fadeIn 0.5s ease forwards ${index * 0.1}s">
+                    <div class="h-48 overflow-hidden relative">
+                        <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                    </div>
+                    <div class="p-6">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="text-xl font-bold font-display uppercase tracking-wide">${item.title}</h3>
+                            <span class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">${item.price}</span>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">${item.desc}</p>
+                        <button class="mt-4 w-full py-2 rounded-lg border border-white/20 hover:bg-white hover:text-black transition uppercase text-xs font-bold tracking-widest">
+                            Ajouter
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderDesserts(data) {
+            const container = document.getElementById('desserts-container');
+            if (!data.desserts) {
+                container.classList.add('hidden');
+                container.innerHTML = '';
+                return;
+            }
+
+            container.classList.remove('hidden');
+            
+            container.innerHTML = `
+                <div class="text-center mb-12" style="animation: fadeIn 0.5s ease forwards">
+                    <h2 class="text-4xl font-display font-bold mb-4">DESSERTS & SUCRÉ</h2>
+                    <div class="h-1 w-24 mx-auto" style="background-color: ${data.accentColor}"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16 max-w-4xl mx-auto">
+                    ${data.desserts.map((item, index) => `
+                        <div class="food-card bg-white/5 border border-white/10 rounded-2xl overflow-hidden group hover:border-white/30" style="animation: fadeIn 0.5s ease forwards ${index * 0.1}s">
+                            <div class="h-48 overflow-hidden relative">
+                                <img src="${item.img}" alt="${item.title}" class="w-full h-full object-cover transform group-hover:scale-110 transition duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                            </div>
+                            <div class="p-6">
+                                <div class="flex justify-between items-start mb-2">
+                                    <h3 class="text-xl font-bold font-display uppercase tracking-wide">${item.title}</h3>
+                                    <span class="text-lg font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-400">${item.price}</span>
+                                </div>
+                                <p class="text-gray-400 text-sm leading-relaxed">${item.desc}</p>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                    ${data.supplements.map((cat, index) => `
+                        <div class="bg-white/5 border border-white/10 rounded-2xl p-6 text-center hover:bg-white/10 transition" style="animation: fadeIn 0.5s ease forwards ${(index + 2) * 0.1}s">
+                            <h4 class="font-display font-bold text-xl mb-1" style="color: ${data.accentColor}">${cat.title}</h4>
+                            <p class="text-sm font-bold text-gray-400 mb-4">${cat.price} / portion</p>
+                            <ul class="space-y-2">
+                                ${cat.items.map(item => `<li class="text-gray-300 text-sm">${item}</li>`).join('')}
+                            </ul>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        // --- SWITCH LOGIC ---
+        function toggleWorld() {
+            const body = document.body;
+            const targetMode = currentMode === 'crepe' ? 'chicken' : 'crepe';
+            const data = DATA[targetMode];
+            const oldData = DATA[currentMode];
+
+            // 1. Trigger Overlay Animation
+            const overlay = document.getElementById('transition-overlay');
+            const overlayText = overlay.querySelector('h2');
+            
+            // Set overlay color based on destination
+            overlay.className = `fixed inset-0 flex items-center justify-center z-[100] ${targetMode === 'chicken' ? 'bg-orange-700' : 'bg-slate-900'}`;
+            overlayText.innerHTML = targetMode === 'chicken' ? 'Chicken<br>Saveur' : 'Le 222<br>Crêperie';
+
+            // GSAP Timeline for transition
+            const tl = gsap.timeline();
+
+            tl.set(overlay, { clipPath: 'circle(0% at 90% 90%)' }) // Start at button pos roughly
+              .to(overlay, { clipPath: 'circle(150% at 90% 90%)', duration: 0.8, ease: "power2.inOut" })
+              .add(() => {
+                  // --- STATE CHANGE IN MIDDLE OF ANIMATION ---
+                  
+                  // Update Classes
+                  body.classList.remove(oldData.theme);
+                  body.classList.add(data.theme);
+                  currentMode = targetMode;
+
+                  // Update Text Content
+                  document.getElementById('brand-logo').innerHTML = data.brand;
+                  document.getElementById('brand-logo').className = `relative font-display text-3xl font-bold tracking-wider transition-colors duration-500 text-[${data.accentColor}]`;
+                  
+                  document.getElementById('hero-subtitle').innerText = data.subtitle;
+                  document.getElementById('hero-subtitle').style.color = data.accentColor;
+                  
+                  document.getElementById('hero-desc').innerText = data.desc;
+                  
+                  // Update CTA
+                  const cta = document.getElementById('cta-primary');
+                  cta.className = `${data.ctaColor} text-black px-8 py-4 rounded-full font-bold uppercase tracking-wider hover:bg-white transition-all duration-300 shadow-lg`;
+                  cta.style.backgroundColor = data.accentColor; // tailwind dynamic class fallback
+                  
+                  // Update Menu Divider
+                  document.getElementById('menu-divider').style.backgroundColor = data.accentColor;
+                  
+                  // Update Icons color
+                  document.querySelectorAll('.icon-container').forEach(el => {
+                      el.style.color = data.accentColor;
+                  });
+
+                  // Update Hero Background
+                  document.getElementById('hero-bg').style.backgroundImage = `url('${data.heroImage}')`;
+
+                  // Toggle Contact Section (Hide in Chicken Mode)
+                  document.getElementById('contact').style.display = targetMode === 'chicken' ? 'none' : 'block';
+
+                  // Toggle Hero Elements (Video & Compose Button) - Only for Crepe Mode
+                  const heroLeft = document.getElementById('hero-left-col');
+                  const heroRight = document.getElementById('hero-right-col');
+                  heroLeft.style.opacity = targetMode === 'chicken' ? '0' : '1';
+                  heroLeft.style.pointerEvents = targetMode === 'chicken' ? 'none' : 'auto';
+                  heroRight.style.opacity = targetMode === 'chicken' ? '0' : '1';
+                  heroRight.style.pointerEvents = targetMode === 'chicken' ? 'none' : 'auto';
+
+                  // Re-render Menu
+                  renderMenu(data.menu);
+                  renderDesserts(data);
+
+                  // Update Switcher Button
+                  const switchBg = document.getElementById('switch-bg');
+                  const switchText = document.getElementById('switch-text');
+                  const switchIcon = document.getElementById('switch-icon');
+
+                  switchBg.className = `absolute inset-0 bg-gradient-to-r ${data.switcherGradient} transition-opacity duration-300 opacity-100 group-hover:opacity-80`;
+                  switchText.innerText = data.switcherText;
+                  switchIcon.setAttribute('data-lucide', data.switcherIcon);
+
+                  // Re-run icons creation
+                  lucide.createIcons();
+                  updateParticles(targetMode);
+
+              })
+              .to(overlay, { clipPath: 'circle(0% at 50% 50%)', duration: 0.8, ease: "power2.inOut", delay: 0.1 });
+        }
+
+        // --- PARTICLE SYSTEM ---
+        const canvas = document.getElementById('particles');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        class Particle {
+            constructor(mode) {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.mode = mode;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.size > 0.2) this.size -= 0.01;
+                if (this.size <= 0.2 || this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                }
+            }
+            draw() {
+                ctx.fillStyle = this.mode === 'crepe' ? 'rgba(212, 175, 55, 0.5)' : 'rgba(249, 115, 22, 0.6)'; // Gold dust or Fire sparks
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initParticles() {
+            particlesArray = [];
+            for (let i = 0; i < 50; i++) {
+                particlesArray.push(new Particle(currentMode));
+            }
+        }
+
+        function updateParticles(mode) {
+             particlesArray.forEach(p => p.mode = mode);
+        }
+
+        function animateParticles() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+            }
+            requestAnimationFrame(animateParticles);
+        }
+
+        // --- COOKIE CONSENT LOGIC ---
+        const CookieManager = {
+            banner: document.getElementById('cookie-banner'),
+            modal: document.getElementById('cookie-modal'),
+            scriptsLoaded: false,
+            
+            init() {
+                // Check existing consent cookie
+                const consent = this.getCookie('cookie_consent');
+                
+                if (!consent) {
+                    this.showBanner();
+                } else if (consent === 'accepted' || consent === 'custom_analytics') {
+                    this.loadScripts();
+                }
+
+                this.bindEvents();
+            },
+
+            setCookie(name, value, days) {
+                let expires = "";
+                if (days) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (days*24*60*60*1000));
+                    expires = "; expires=" + date.toUTCString();
+                }
+                document.cookie = name + "=" + (value || "")  + expires + "; path=/";
+            },
+
+            getCookie(name) {
+                const nameEQ = name + "=";
+                const ca = document.cookie.split(';');
+                for(let i=0;i < ca.length;i++) {
+                    let c = ca[i];
+                    while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                    if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+                }
+                return null;
+            },
+
+            showBanner() {
+                this.banner.classList.remove('hidden');
+                setTimeout(() => {
+                    this.banner.classList.remove('translate-y-full');
+                    this.banner.classList.add('flex');
+                }, 100);
+            },
+
+            hideBanner() {
+                this.banner.classList.add('translate-y-full');
+                setTimeout(() => {
+                    this.banner.classList.add('hidden');
+                    this.banner.classList.remove('flex');
+                }, 500);
+            },
+
+            loadScripts() {
+                if (this.scriptsLoaded) return;
+                this.scriptsLoaded = true;
+                
+                // --- GOOGLE ANALYTICS (GA4) ---
+                // Remplacez 'G-XXXXXXXXXX' par votre vrai ID de mesure Google Analytics
+                const GA_ID = 'G-XXXXXXXXXX'; 
+
+                if (GA_ID !== 'G-XXXXXXXXXX') {
+                    const script = document.createElement('script');
+                    script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+                    script.async = true;
+                    document.head.appendChild(script);
+
+                    window.dataLayer = window.dataLayer || [];
+                    function gtag(){dataLayer.push(arguments);}
+                    gtag('js', new Date());
+                    gtag('config', GA_ID);
+                }
+            },
+
+            bindEvents() {
+                document.getElementById('btn-accept-all').addEventListener('click', () => {
+                    this.setCookie('cookie_consent', 'accepted', 365);
+                    this.loadScripts();
+                    this.hideBanner();
+                });
+
+                document.getElementById('btn-reject-all').addEventListener('click', () => {
+                    this.setCookie('cookie_consent', 'refused', 365);
+                    this.hideBanner();
+                });
+
+                document.getElementById('btn-customize').addEventListener('click', () => {
+                    this.modal.classList.remove('hidden');
+                    this.modal.classList.add('flex');
+                });
+
+                document.getElementById('btn-close-modal').addEventListener('click', () => {
+                    this.modal.classList.add('hidden');
+                    this.modal.classList.remove('flex');
+                });
+
+                document.getElementById('btn-save-preferences').addEventListener('click', () => {
+                    const analytics = document.getElementById('consent-analytics').checked;
+                    const status = analytics ? 'custom_analytics' : 'refused';
+                    
+                    this.setCookie('cookie_consent', status, 365);
+                    if (analytics) this.loadScripts();
+                    
+                    this.modal.classList.add('hidden');
+                    this.modal.classList.remove('flex');
+                    this.hideBanner();
+                });
+
+                document.getElementById('footer-cookie-link').addEventListener('click', (e) => {
+                    e.preventDefault();
+                    this.showBanner();
+                });
+            }
+        };
+
+        // --- ON LOAD ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderMenu(DATA.crepe.menu);
+            renderDesserts(DATA.crepe);
+            initParticles();
+            animateParticles();
+            CookieManager.init();
+            
+            // GSAP Entrance
+            gsap.from("#hero-title", { y: 50, opacity: 0, duration: 1, delay: 0.2 });
+            gsap.from("#hero-subtitle", { y: 20, opacity: 0, duration: 1, delay: 0.4 });
+            gsap.from("#cta-primary", { scale: 0.8, opacity: 0, duration: 0.8, delay: 0.6, ease: "back.out(1.7)" });
+        });
+    </script>
+</body>
+</html>
