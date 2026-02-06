@@ -20,6 +20,8 @@ collections:
               - {label: "Titre", name: "brand", widget: "string"}
               - {label: "Sous-titre", name: "subtitle", widget: "string"}
               - {label: "Description", name: "desc", widget: "text"}
+              - {label: "Couleur Accent", name: "accentColor", widget: "color"}
+              - {label: "Image de Fond", name: "heroImage", widget: "image"}
               - label: "Menu"
                 name: "menu"
                 widget: "list"
@@ -28,6 +30,13 @@ collections:
                   - {label: "Prix", name: "price", widget: "string"}
                   - {label: "Description", name: "desc", widget: "text"}
                   - {label: "Image", name: "img", widget: "image"}
+              - label: "Suppléments"
+                name: "supplements"
+                widget: "list"
+                fields:
+                  - {label: "Titre", name: "title", widget: "string"}
+                  - {label: "Prix", name: "price", widget: "string"}
+                  - {label: "Liste", name: "items", widget: "list", field: {widget: "string"}}
           
           - label: "Mode Chicken"
             name: "chicken"
@@ -36,6 +45,8 @@ collections:
               - {label: "Titre", name: "brand", widget: "string"}
               - {label: "Sous-titre", name: "subtitle", widget: "string"}
               - {label: "Description", name: "desc", widget: "text"}
+              - {label: "Couleur Accent", name: "accentColor", widget: "color"}
+              - {label: "Image de Fond", name: "heroImage", widget: "image"}
               - label: "Menu"
                 name: "menu"
                 widget: "list"
@@ -44,6 +55,21 @@ collections:
                   - {label: "Prix", name: "price", widget: "string"}
                   - {label: "Description", name: "desc", widget: "text"}
                   - {label: "Image", name: "img", widget: "image"}
+              - label: "Desserts"
+                name: "desserts"
+                widget: "list"
+                fields:
+                  - {label: "Nom", name: "title", widget: "string"}
+                  - {label: "Prix", name: "price", widget: "string"}
+                  - {label: "Description", name: "desc", widget: "text"}
+                  - {label: "Image", name: "img", widget: "image"}
+              - label: "Suppléments"
+                name: "supplements"
+                widget: "list"
+                fields:
+                  - {label: "Titre", name: "title", widget: "string"}
+                  - {label: "Prix", name: "price", widget: "string"}
+                  - {label: "Liste", name: "items", widget: "list", field: {widget: "string"}}
 
       - name: "compose"
         label: "Page Compose Ta Crêpe"
@@ -60,6 +86,75 @@ collections:
                 fields: 
                   - label: "Viandes (Proteins)"
                     name: "proteins"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                  - label: "Légumes (Veggies)"
+                    name: "veggies"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                  - label: "Fromages (Cheeses)"
+                    name: "cheeses"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                  - label: "Sauces"
+                    name: "sauces"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+          - label: "Coté Sucré"
+            name: "sucre"
+            widget: "object"
+            fields:
+              - {label: "Prix de base", name: "basePrice", widget: "string"}
+              - label: "Sections"
+                name: "sections"
+                widget: "object"
+                fields: 
+                  - label: "Basics"
+                    name: "basics"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                  - label: "Gourmandises"
+                    name: "gourmandises"
+                    widget: "object"
+                    fields:
+                      - {label: "Titre", name: "title", widget: "string"}
+                      - {label: "Prix", name: "price", widget: "string"}
+                      - label: "Ingrédients"
+                        name: "items"
+                        widget: "list"
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                  - label: "Fruits"
+                    name: "fruits"
                     widget: "object"
                     fields:
                       - {label: "Titre", name: "title", widget: "string"}
