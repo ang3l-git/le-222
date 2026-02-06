@@ -36,7 +36,7 @@ collections:
                 fields:
                   - {label: "Titre", name: "title", widget: "string"}
                   - {label: "Prix", name: "price", widget: "string"}
-                  - {label: "Liste", name: "items", widget: "list", field: {widget: "string"}}
+                  - {label: "Liste", name: "items", widget: "list", field: {name: "item", widget: "string"}}
           
           - label: "Mode Chicken"
             name: "chicken"
@@ -69,7 +69,7 @@ collections:
                 fields:
                   - {label: "Titre", name: "title", widget: "string"}
                   - {label: "Prix", name: "price", widget: "string"}
-                  - {label: "Liste", name: "items", widget: "list", field: {widget: "string"}}
+                  - {label: "Liste", name: "items", widget: "list", field: {name: "item", widget: "string"}}
 
       - name: "compose"
         label: "Page Compose Ta Crêpe"
