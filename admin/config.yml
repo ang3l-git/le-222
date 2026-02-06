@@ -123,7 +123,7 @@ collections:
                       - label: "Ingrédients"
                         name: "items"
                         widget: "list"
-                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image"}]
+                        fields: [{label: "Nom", name: "name", widget: "string"}, {label: "Image", name: "img", widget: "image", required: false}]
           - label: "Coté Sucré"
             name: "sucre"
             widget: "object"
