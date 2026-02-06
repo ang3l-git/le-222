@@ -3,65 +3,167 @@
     "basePrice": "Base Crêpe + Emmental : 3.50€",
     "sections": {
       "proteins": {
-        "title": "1. CHOISIS TES VIANDES",
+        "title": "1. CHOISIS TES VIANDE",
         "price": "1.30€ / supp",
         "items": [
-          { "name": "Viande Hachée", "img": "viandehachee.png" },
-          { "name": "Poulet Émincé", "img": "poulet.png" },
-          { "name": "Chorizo", "img": "chorizo.png" },
-          { "name": "Thon", "img": "thon.png" },
-          { "name": "Lardons", "img": "lardons.png" },
-          { "name": "Kebab", "img": "kebab.png" },
-          { "name": "Bacon", "img": "bacon.png" },
-          { "name": "Cordon Bleu", "img": "cordonbleu.png" },
-          { "name": "Tenders", "img": "tenders.png" }
+          {
+            "name": "Viande Hachée",
+            "img": "viandehachee.png"
+          },
+          {
+            "name": "Poulet Émincé",
+            "img": "poulet.png"
+          },
+          {
+            "name": "Chorizo",
+            "img": "chorizo.png"
+          },
+          {
+            "name": "Thon",
+            "img": "thon.png"
+          },
+          {
+            "name": "Lardons",
+            "img": "lardons.png"
+          },
+          {
+            "name": "Kebab",
+            "img": "kebab.png"
+          },
+          {
+            "name": "Bacon",
+            "img": "bacon.png"
+          },
+          {
+            "name": "Cordon Bleu",
+            "img": "cordonbleu.png"
+          },
+          {
+            "name": "Tenders",
+            "img": "tenders.png"
+          }
         ]
       },
       "veggies": {
         "title": "2. LÉGUMES & OEUF",
         "price": "0.60€ / supp",
         "items": [
-          { "name": "Champignons", "img": "champignons.png" },
-          { "name": "Cornichons", "img": "cornichons.png" },
-          { "name": "Pommes de terre", "img": "pommesdeterre.png" },
-          { "name": "Poivrons", "img": "poivrons.png" },
-          { "name": "Oignons Frits", "img": "oignonsfrits.png" },
-          { "name": "Oignons Frais", "img": "oignonsfrais.png" },
-          { "name": "Salade", "img": "salade.png" },
-          { "name": "Olives", "img": "olives.png" },
-          { "name": "Oeuf", "img": "oeuf.png" }
+          {
+            "name": "Champignons",
+            "img": "champignons.png"
+          },
+          {
+            "name": "Cornichons",
+            "img": "cornichons.png"
+          },
+          {
+            "name": "Pommes de terre",
+            "img": "pommesdeterre.png"
+          },
+          {
+            "name": "Poivrons",
+            "img": "poivrons.png"
+          },
+          {
+            "name": "Oignons Frits",
+            "img": "oignonsfrits.png"
+          },
+          {
+            "name": "Oignons Frais",
+            "img": "oignonsfrais.png"
+          },
+          {
+            "name": "Salade",
+            "img": "salade.png"
+          },
+          {
+            "name": "Olives",
+            "img": "olives.png"
+          },
+          {
+            "name": "Oeuf",
+            "img": "oeuf.png"
+          }
         ]
       },
       "cheeses": {
         "title": "3. FROMAGES",
         "price": "0.80€ / supp",
         "items": [
-          { "name": "Chèvre", "img": "chevre.png" },
-          { "name": "Boursin", "img": "boursin.png" },
-          { "name": "Vache qui rit", "img": "vachequirit.png" },
-          { "name": "Cheddar", "img": "cheddar.png" },
-          { "name": "Mozzarella", "img": "mozzarella.png" },
-          { "name": "Raclette", "img": "raclette.png" },
-          { "name": "Sauce Fromagère", "img": "saucefromagere.png" },
-          { "name": "Crème Fraîche", "img": "cremefraiche.png" }
+          {
+            "name": "Chèvre",
+            "img": "chevre.png"
+          },
+          {
+            "name": "Boursin",
+            "img": "boursin.png"
+          },
+          {
+            "name": "Vache qui rit",
+            "img": "vachequirit.png"
+          },
+          {
+            "name": "Cheddar",
+            "img": "cheddar.png"
+          },
+          {
+            "name": "Mozzarella",
+            "img": "mozzarella.png"
+          },
+          {
+            "name": "Raclette",
+            "img": "raclette.png"
+          },
+          {
+            "name": "Sauce Fromagère",
+            "img": "saucefromagere.png"
+          },
+          {
+            "name": "Crème Fraîche",
+            "img": "cremefraiche.png"
+          }
         ]
       },
       "sauces": {
         "title": "4. SAUCES",
         "price": "Gratuit",
         "items": [
-          { "name": "Algérienne" },
-          { "name": "Mayonnaise" },
-          { "name": "Ketchup" },
-          { "name": "Biggy" },
-          { "name": "Chili Thaï" },
-          { "name": "Barbecue" },
-          { "name": "Blanche" },
-          { "name": "Poivre" },
-          { "name": "Curry" },
-          { "name": "Harissa" },
-          { "name": "Andalouse" },
-          { "name": "Tartare" }
+          {
+            "name": "Algérienne"
+          },
+          {
+            "name": "Mayonnaise"
+          },
+          {
+            "name": "Ketchup"
+          },
+          {
+            "name": "Biggy"
+          },
+          {
+            "name": "Chili Thaï"
+          },
+          {
+            "name": "Barbecue"
+          },
+          {
+            "name": "Blanche"
+          },
+          {
+            "name": "Poivre"
+          },
+          {
+            "name": "Curry"
+          },
+          {
+            "name": "Harissa"
+          },
+          {
+            "name": "Andalouse"
+          },
+          {
+            "name": "Tartare"
+          }
         ]
       }
     }
@@ -73,30 +175,66 @@
         "title": "1. LES BASICS",
         "price": "0.50€ / portion",
         "items": [
-          { "name": "Nutella", "img": "nutella.png" },
-          { "name": "Chantilly", "img": "chantilly.png" }
+          {
+            "name": "Nutella",
+            "img": "nutella.png"
+          },
+          {
+            "name": "Chantilly",
+            "img": "chantilly.png"
+          }
         ]
       },
       "gourmandises": {
         "title": "2. LES GOURMANDISES",
         "price": "0.80€ / portion",
         "items": [
-          { "name": "Kinder Bueno", "img": "kinderbueno.png" },
-          { "name": "Kinder Bueno White", "img": "kinderbuenowhite.png" },
-          { "name": "Schoko-Bons", "img": "schokobons.png" },
-          { "name": "Spéculoos", "img": "speculoos.png" },
-          { "name": "M&M's", "img": "mms.png" },
-          { "name": "Chocolat blanc", "img": "chocolatblanc.png" },
-          { "name": "Fraise", "img": "fraise.png" },
-          { "name": "Crunch", "img": "crunch.png" }
+          {
+            "name": "Kinder Bueno",
+            "img": "kinderbueno.png"
+          },
+          {
+            "name": "Kinder Bueno White",
+            "img": "kinderbuenowhite.png"
+          },
+          {
+            "name": "Schoko-Bons",
+            "img": "schokobons.png"
+          },
+          {
+            "name": "Spéculoos",
+            "img": "speculoos.png"
+          },
+          {
+            "name": "M&M's",
+            "img": "mms.png"
+          },
+          {
+            "name": "Chocolat blanc",
+            "img": "chocolatblanc.png"
+          },
+          {
+            "name": "Fraise",
+            "img": "fraise.png"
+          },
+          {
+            "name": "Crunch",
+            "img": "crunch.png"
+          }
         ]
       },
       "fruits": {
         "title": "3. LES FRUITS",
         "price": "1.00€ / portion",
         "items": [
-          { "name": "Banane", "img": "banane.png" },
-          { "name": "Fraise", "img": "fraise.png" }
+          {
+            "name": "Banane",
+            "img": "banane.png"
+          },
+          {
+            "name": "Fraise",
+            "img": "fraise.png"
+          }
         ]
       }
     }
