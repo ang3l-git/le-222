@@ -1,58 +1,184 @@
 {
   "crepe": {
-    "theme": "mode-crepe",
+    "heroImage": "fond/222fondcrepe.png",
     "brand": "LE 222",
-    "subtitle": "L'ART DE LA CRÊPE URBAINE",
+    "theme": "mode-crepe",
+    "switcherText": "Côté Chicken",
+    "switcherGradient": "from-orange-600 to-red-700",
     "desc": "Une fusion parfaite entre tradition et street-food. Des ingrédients frais, une pâte maison, une expérience unique. Halal.",
     "ctaColor": "bg-[#d4af37]",
+    "subtitle": "L'ART DES CRÊPES URBAINE",
     "accentColor": "#d4af37",
-    "heroImage": "fond/222fondcrepe.png",
-    "menu": [
-      { "title": "Burger", "price": "6.20€", "desc": "Cheddar, oignons, salade, viande hachée, sauce biggy.", "img": "images/crepeburger.png" },
-      { "title": "La Bolo", "price": "6.80€", "desc": "Bolognaise, oignons, vache qui rit, poivrons.", "img": "images/crepebolo.png" },
-      { "title": "Chèvre Miel", "price": "7.00€", "desc": "Escalope de poulet, chèvre, oignons, miel, crème fraîche.", "img": "images/crepechevremiel.png" },
-      { "title": "Savoyarde", "price": "8.90€", "desc": "Raclette, oignons, pommes de terre, bacon, lardons, crème fraîche.", "img": "images/crepesavoyarde.png" },
-      { "title": "La 222", "price": "8.50€", "desc": "Merguez, viande hachée, œuf, poivrons, olives, oignons, sauce barbecue.", "img": "images/crepela222.png" },
-      { "title": "Menu Étudiant", "price": "6.00€", "desc": "Crêpe (1 viande, 1 légume, 1 fromage, sauce) + Boisson.", "img": "images/crepeetudiant.png" }
-    ],
     "supplements": [
-      { "title": "LES BASICS", "price": "0.50€", "items": ["Nutella", "Chantilly"] },
-      { "title": "LES GOURMANDISES", "price": "0.80€", "items": ["Kinder Bueno", "Kinder Bueno White", "Schoko-Bons", "Spéculoos", "M&M's", "Chocolat blanc", "Fraise", "Crunch"] },
-      { "title": "LES FRUITS", "price": "1.00€", "items": ["Banane", "Fraise"] }
+      {
+        "title": "LES BASICS",
+        "price": "0.50€",
+        "items": [
+          "Nutella",
+          "Chantilly"
+        ]
+      },
+      {
+        "title": "LES GOURMANDISES",
+        "price": "0.80€",
+        "items": [
+          "Kinder Bueno",
+          "Kinder Bueno White",
+          "Schoko-Bons",
+          "Spéculoos",
+          "M&M's",
+          "Chocolat blanc",
+          "Fraise",
+          "Crunch"
+        ]
+      },
+      {
+        "title": "LES FRUITS",
+        "price": "1.00€",
+        "items": [
+          "Banane",
+          "Fraise"
+        ]
+      }
     ],
     "switcherIcon": "flame",
-    "switcherText": "Côté Chicken",
-    "switcherGradient": "from-orange-600 to-red-700"
+    "menu": [
+      {
+        "title": "Burger",
+        "price": "6.20€",
+        "desc": "Cheddar, oignons, salade, viande hachée, sauce biggy.",
+        "img": "images/crepeburger.png"
+      },
+      {
+        "title": "La Bolo",
+        "price": "6.80€",
+        "desc": "Bolognaise, oignons, vache qui rit, poivrons.",
+        "img": "images/crepebolo.png"
+      },
+      {
+        "title": "Chèvre Miel",
+        "price": "7.00€",
+        "desc": "Escalope de poulet, chèvre, oignons, miel, crème fraîche.",
+        "img": "images/crepechevremiel.png"
+      },
+      {
+        "title": "Savoyarde",
+        "price": "8.90€",
+        "desc": "Raclette, oignons, pommes de terre, bacon, lardons, crème fraîche.",
+        "img": "images/crepesavoyarde.png"
+      },
+      {
+        "title": "La 222",
+        "price": "8.50€",
+        "desc": "Merguez, viande hachée, œuf, poivrons, olives, oignons, sauce barbecue.",
+        "img": "images/crepela222.png"
+      },
+      {
+        "title": "Menu Étudiant",
+        "price": "6.00€",
+        "desc": "Crêpe (1 viande, 1 légume, 1 fromage, sauce) + Boisson.",
+        "img": "images/crepeetudiant.png"
+      }
+    ]
   },
   "chicken": {
-    "theme": "mode-chicken",
+    "heroImage": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=2070&auto=format&fit=crop",
     "brand": "CHICKEN SAVEUR <img src=\"images/sultana.png\" class=\"absolute left-full top-1/2 -translate-y-1/2 ml-2 w-12 md:w-24 -rotate-12 pointer-events-none drop-shadow-[0_0_15px_rgba(249,115,22,0.5)]\" alt=\"Sultana\">",
-    "subtitle": "LE FEU DU GOÛT",
+    "theme": "mode-chicken",
+    "desserts": [
+      {
+        "title": "Milkshake",
+        "price": "3.90€",
+        "desc": "Base Vanille, Fraise ou Chocolat. 2 ingrédients au choix + 1 gourmandise incluse.",
+        "img": "images/milkshake.jpg"
+      },
+      {
+        "title": "Smoothie",
+        "price": "3.90€",
+        "desc": "100% Fruits mixés. 2 fruits au choix : Fraise, Banane, Framboise, Mangue.",
+        "img": "images/smoothie.png"
+      }
+    ],
+    "switcherText": "Côté Crêpes",
+    "switcherGradient": "from-slate-700 to-slate-900",
     "desc": "Panure croustillante épicée, marinades secrètes de 24h. Plongez dans l'univers du vrai poulet frit. Halal.",
     "ctaColor": "bg-[#f97316]",
+    "subtitle": "LE FEU DU GOÛT",
     "accentColor": "#f97316",
-    "heroImage": "https://images.unsplash.com/photo-1626082927389-6cd097cdc6ec?q=80&w=2070&auto=format&fit=crop",
-    "menu": [
-      { "title": "Formule Solo", "price": "10.00€", "desc": "5 Wings ou Tenders + Frites + Canette.", "img": "images/wings.jpg" },
-      { "title": "Bucket Duo", "price": "25.00€", "desc": "20 Wings ou Tenders + 2 Frites + 2 Canettes.", "img": "images/bucketduo.png" },
-      { "title": "Menu Burger Sultana", "price": "10.00€", "desc": "Burger Sultana + Frites + Canette.", "img": "images/menuburgersultana.png" },
-      { "title": "Bucket Famille", "price": "35.00€", "desc": "33 Wings + 4 Frites + 4 Canettes.", "img": "images/bucketmaxi.png" },
-      { "title": "Burger Sultana", "price": "6.50€", "desc": "Burger seul.", "img": "images/menuburgersultana.png" },
-      { "title": "Riz Poulet Sauce", "price": "8.00€", "desc": "Riz avec poulet en sauce.", "img": "images/rizpouletsauce.png" },
-      { "title": "Riz Poulet Crousty", "price": "8.00€", "desc": "Riz et poulet crousty.", "img": "images/rizpouletcrousty.jpg" },
-      { "title": "Formule Riz", "price": "10.00€", "desc": "Riz et poulet en sauce + Canette.", "img": "images/rizpouletsauce.png" }
-    ],
-    "desserts": [
-      { "title": "Milkshake", "price": "3.90€", "desc": "Base Vanille, Fraise ou Chocolat. 2 ingrédients au choix + 1 gourmandise incluse.", "img": "images/milkshake.jpg" },
-      { "title": "Smoothie", "price": "3.90€", "desc": "100% Fruits mixés. 2 fruits au choix : Fraise, Banane, Framboise, Mangue.", "img": "images/smoothie.png" }
-    ],
     "supplements": [
-      { "title": "FAIT MAISON", "price": "1.50€", "items": ["Frite Maison"] },
-      { "title": "POULET (UNITÉ)", "price": "1.30€", "items": ["Wings", "Tenders"] },
-      { "title": "BOISSONS", "price": "2.00€", "items": ["Canette 33cl"] }
+      {
+        "title": "FAIT MAISON",
+        "price": "1.50€",
+        "items": [
+          "Frite Maison"
+        ]
+      },
+      {
+        "title": "POULET (UNITÉ)",
+        "price": "1.30€",
+        "items": [
+          "Wings",
+          "Tenders"
+        ]
+      },
+      {
+        "title": "BOISSONS",
+        "price": "2.00€",
+        "items": [
+          "Canette 33cl"
+        ]
+      }
     ],
     "switcherIcon": "wheat",
-    "switcherText": "Côté Crêpes",
-    "switcherGradient": "from-slate-700 to-slate-900"
+    "menu": [
+      {
+        "title": "Formule Solo",
+        "price": "10.00€",
+        "desc": "5 Wings ou Tenders + Frites + Canette.",
+        "img": "images/wings.jpg"
+      },
+      {
+        "title": "Bucket Duo",
+        "price": "25.00€",
+        "desc": "20 Wings ou Tenders + 2 Frites + 2 Canettes.",
+        "img": "images/bucketduo.png"
+      },
+      {
+        "title": "Menu Burger Sultana",
+        "price": "10.00€",
+        "desc": "Burger Sultana + Frites + Canette.",
+        "img": "images/menuburgersultana.png"
+      },
+      {
+        "title": "Bucket Famille",
+        "price": "35.00€",
+        "desc": "33 Wings + 4 Frites + 4 Canettes.",
+        "img": "images/bucketmaxi.png"
+      },
+      {
+        "title": "Burger Sultana",
+        "price": "6.50€",
+        "desc": "Burger seul.",
+        "img": "images/menuburgersultana.png"
+      },
+      {
+        "title": "Riz Poulet Sauce",
+        "price": "8.00€",
+        "desc": "Riz avec poulet en sauce.",
+        "img": "images/rizpouletsauce.png"
+      },
+      {
+        "title": "Riz Poulet Crousty",
+        "price": "8.00€",
+        "desc": "Riz et poulet crousty.",
+        "img": "images/rizpouletcrousty.jpg"
+      },
+      {
+        "title": "Formule Riz",
+        "price": "10.00€",
+        "desc": "Riz et poulet en sauce + Canette.",
+        "img": "images/rizpouletsauce.png"
+      }
+    ]
   }
 }
